@@ -29,10 +29,17 @@ namespace Tools.ObjectPoolTool.Container
 
         public void Expansion()
         {
+            _curMaxSize += _defaultSize;
         }
 
         public void Shrink()
         {
+            while (_curContainer.Count > (_curMaxSize - _defaultSize))
+            {
+                _curContainer.Dequeue();
+            }
+
+            _curMaxSize -= _defaultSize;
         }
 
         public T ApplyElement()
