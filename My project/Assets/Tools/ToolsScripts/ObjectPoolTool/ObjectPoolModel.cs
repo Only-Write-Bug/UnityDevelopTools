@@ -52,7 +52,7 @@ namespace Tools.ObjectPoolTool
         /// </summary>
         public void ClearContainer()
         {
-            
+            _curContainer.Clear();   
         }
     }
 }
