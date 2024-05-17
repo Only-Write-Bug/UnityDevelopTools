@@ -11,9 +11,9 @@ public static class ObjectPoolTool
     /// <param name="memoryType">存储类型，影响对象池扩容效率</param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static ObjectPoolModel<T> ApplyCreateObjectPool<T>(int defaultSize, OBJECT_POOL_MEMORY_TYPE memoryType)
+    public static ObjectPoolModel<T> ApplyObjectPool<T>(int defaultSize, OBJECT_POOL_MEMORY_TYPE memoryType)
         where T : class, IPoolElementRecycle, new()
     {
-        return ObjectPoolManager.Instance.ApplyCreateObjectPool<T>(defaultSize, memoryType);
+        return ObjectPoolManager.Instance.ApplyObjectPool<T>(defaultSize, memoryType);
     }
 }

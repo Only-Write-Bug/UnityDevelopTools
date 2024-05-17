@@ -23,5 +23,9 @@ namespace Tools.ObjectPoolTool.Container
         /// 回收实例
         /// </summary>
         public void RecycleElement(T go);
+        /// <summary>
+        /// 填充容器
+        /// </summary>
+        public void StuffContainer();
     }
 }

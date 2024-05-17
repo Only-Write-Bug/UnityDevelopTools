@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Tools.ObjectPoolTool.Container
 {
@@ -10,6 +12,7 @@ namespace Tools.ObjectPoolTool.Container
         {
             _curContainer = new Queue<T>(_defaultSize);
             _curMaxSize = _defaultSize;
+            StuffContainer();
         }
 
         public PoolArray(int initSize)
@@ -17,6 +20,7 @@ namespace Tools.ObjectPoolTool.Container
             _defaultSize = initSize;
             _curContainer = new Queue<T>(_defaultSize);
             _curMaxSize = _defaultSize;
+            StuffContainer();
         }
 
         public void Add(T go)
@@ -30,16 +34,31 @@ namespace Tools.ObjectPoolTool.Container
         public void Expansion()
         {
             _curMaxSize += _defaultSize;
+
+            var tmpContainer = new Queue<T>(_curMaxSize);
+            for (int i = 0; i < _curMaxSize; i++)
+            {
+                if (_curContainer.Count > 0)
+                {
+                    tmpContainer.Enqueue(_curContainer.Dequeue());
+                    continue;
+                }
+            }
+
+            StuffContainer();
+            _curContainer.Clear();
+            _curContainer = tmpContainer;
         }
 
         public void Shrink()
         {
-            while (_curContainer.Count > (_curMaxSize - _defaultSize))
+            _curMaxSize -= _defaultSize;
+            while (_curContainer.Count > _curMaxSize)
             {
                 _curContainer.Dequeue();
             }
 
-            _curMaxSize -= _defaultSize;
+            StuffContainer();
         }
 
         public T ApplyElement()
@@ -57,6 +76,19 @@ namespace Tools.ObjectPoolTool.Container
             }
 
             _outBoundsCount++;
+        }
+
+        public void StuffContainer()
+        {
+            if(_curContainer.Count >= _curMaxSize)
+                return;
+
+            while (_curContainer.Count < _curMaxSize)
+            {
+                var tmpGo = new T();
+                tmpGo.Recycle();
+                _curContainer.Enqueue(tmpGo);
+            }
         }
     }
 }

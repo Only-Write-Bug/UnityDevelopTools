@@ -18,7 +18,7 @@ namespace Tools.ObjectPoolTool
         /// <param name="memoryType">存储类型，影响对象池扩容效率</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public ObjectPoolModel<T> ApplyCreateObjectPool<T>(int defaultSize, OBJECT_POOL_MEMORY_TYPE memoryType)
+        public ObjectPoolModel<T> ApplyObjectPool<T>(int defaultSize, OBJECT_POOL_MEMORY_TYPE memoryType)
             where T : class, IPoolElementRecycle, new()
         {
             if (!_objectPoolsDic.ContainsKey(typeof(T).ToString()))
@@ -34,7 +34,7 @@ namespace Tools.ObjectPoolTool
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public ObjectPoolModel<T> ApplyGetObjectPool<T>() where T : class, IPoolElementRecycle, new()
+        public ObjectPoolModel<T> GetObjectPool<T>() where T : class, IPoolElementRecycle, new()
         {
             if (_objectPoolsDic.ContainsKey(typeof(T).ToString()))
             {
