@@ -1,6 +1,7 @@
 
 using Tools.ObjectPoolTool;
 using Tools.ObjectPoolTool.Enum;
+using Unity.VisualScripting;
 
 public static class ObjectPoolTool
 {
@@ -15,5 +16,10 @@ public static class ObjectPoolTool
         where T : class, IPoolElementRecycle, new()
     {
         return ObjectPoolManager.Instance.ApplyObjectPool<T>(defaultSize, memoryType);
+    }
+
+    public static void ClearObjectPool<T>() where T : class, IPoolElementRecycle, new()
+    {
+        ObjectPoolManager.Instance.ClearObjectPool<T>();
     }
 }

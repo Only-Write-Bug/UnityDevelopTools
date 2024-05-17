@@ -7,10 +7,8 @@ namespace Tools.ObjectPoolTool
 {
     public class ObjectPoolManager : ToolBase<ObjectPoolManager>
     {
-        //============================ private variable ========================================
         private Dictionary<string, object> _objectPoolsDic = new Dictionary<string, object>();
         
-        //============================ public functions ========================================
         /// <summary>
         /// 申请创建对象池，每个类只能创建一个对象池，若对象池已存在，获取原有对象池
         /// </summary>
@@ -21,11 +19,11 @@ namespace Tools.ObjectPoolTool
         public ObjectPoolModel<T> ApplyObjectPool<T>(int defaultSize, OBJECT_POOL_MEMORY_TYPE memoryType)
             where T : class, IPoolElementRecycle, new()
         {
-            if (!_objectPoolsDic.ContainsKey(typeof(T).ToString()))
+            if (!_objectPoolsDic.ContainsKey(typeof(T).ToString()) || _objectPoolsDic[typeof(T).ToString()] == null)
             {
                 _objectPoolsDic[typeof(T).ToString()] = new ObjectPoolModel<T>(defaultSize, memoryType);
             }
-
+            
             return _objectPoolsDic[typeof(T).ToString()] as ObjectPoolModel<T>;
         }
 
@@ -36,15 +34,25 @@ namespace Tools.ObjectPoolTool
         /// <returns></returns>
         public ObjectPoolModel<T> GetObjectPool<T>() where T : class, IPoolElementRecycle, new()
         {
-            if (_objectPoolsDic.ContainsKey(typeof(T).ToString()))
+            if (_objectPoolsDic.ContainsKey(typeof(T).ToString()) && _objectPoolsDic[typeof(T).ToString()] != null)
             {
                 return _objectPoolsDic[typeof(T).ToString()] as ObjectPoolModel<T>;
             }
 
             return null;
         }
-        
-        //============================ private functions ========================================
-        
+
+        /// <summary>
+        /// 清空对象池
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void ClearObjectPool<T>() where T : class, IPoolElementRecycle, new()
+        {
+            if (_objectPoolsDic.ContainsKey(typeof(T).ToString()))
+            {
+                var objPool = _objectPoolsDic[typeof(T).ToString()] as ObjectPoolModel<T>;
+                _objectPoolsDic.Remove(typeof(T).ToString());
+            }
+        }
     }
 }

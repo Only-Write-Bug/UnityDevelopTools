@@ -46,5 +46,13 @@ namespace Tools.ObjectPoolTool
         {
             _curContainer.RecycleObject(go);
         }
+
+        /// <summary>
+        /// 清空容器
+        /// </summary>
+        public void ClearContainer()
+        {
+            
+        }
     }
 }

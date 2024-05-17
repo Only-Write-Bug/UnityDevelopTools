@@ -27,5 +27,9 @@ namespace Tools.ObjectPoolTool.Container
         /// 填充容器
         /// </summary>
         public void StuffContainer();
+        /// <summary>
+        /// 清空
+        /// </summary>
+        public void Clear();
     }
 }

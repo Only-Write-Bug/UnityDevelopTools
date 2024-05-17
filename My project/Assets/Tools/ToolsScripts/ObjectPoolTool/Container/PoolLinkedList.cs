@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Tools.ObjectPoolTool.Container
 {
@@ -74,6 +75,12 @@ namespace Tools.ObjectPoolTool.Container
                 tmpGo.Recycle();
                 _curContainer.Add(tmpGo);
             }
+        }
+
+        public void Clear()
+        {
+            _curContainer.Clear();
+            _curContainer = null;
         }
     }
 }

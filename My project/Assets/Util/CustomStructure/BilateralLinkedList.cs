@@ -91,6 +91,17 @@ public class BilateralLinkedList<T>
 
         return tmpArray;
     }
+
+    public void Clear()
+    {
+        while (_count > 0)
+        {
+            TryPop(out var value);
+        }
+        
+        _nodePool.Clear();
+        _nodePool = null;
+    }
 }
 
 public class BilateralLinkedListNode<T>

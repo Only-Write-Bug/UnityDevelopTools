@@ -90,5 +90,11 @@ namespace Tools.ObjectPoolTool.Container
                 _curContainer.Enqueue(tmpGo);
             }
         }
+
+        public void Clear()
+        {
+            _curContainer.Clear();
+            _curContainer = null;
+        }
     }
 }
