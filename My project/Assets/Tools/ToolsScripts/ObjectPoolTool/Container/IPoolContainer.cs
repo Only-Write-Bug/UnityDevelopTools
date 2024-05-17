@@ -18,11 +18,11 @@ namespace Tools.ObjectPoolTool.Container
         /// <summary>
         /// 申请实例
         /// </summary>
-        public T ApplyElement();
+        public T ApplyObject();
         /// <summary>
         /// 回收实例
         /// </summary>
-        public void RecycleElement(T go);
+        public void RecycleObject(T go);
         /// <summary>
         /// 填充容器
         /// </summary>

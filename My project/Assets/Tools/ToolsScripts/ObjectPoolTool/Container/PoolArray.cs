@@ -61,12 +61,12 @@ namespace Tools.ObjectPoolTool.Container
             StuffContainer();
         }
 
-        public T ApplyElement()
+        public T ApplyObject()
         {
             return _curContainer.Count > 0 ? _curContainer.Dequeue() : new T();
         }
 
-        public void RecycleElement(T go)
+        public void RecycleObject(T go)
         {
             if (_curContainer.Count < _curMaxSize)
             {

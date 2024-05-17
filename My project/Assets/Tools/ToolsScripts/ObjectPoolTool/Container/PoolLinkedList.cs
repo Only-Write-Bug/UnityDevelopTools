@@ -42,7 +42,7 @@ namespace Tools.ObjectPoolTool.Container
             StuffContainer();
         }
 
-        public T ApplyElement()
+        public T ApplyObject()
         {
             if (_curContainer.count <= 0)
                 return null;
@@ -54,7 +54,7 @@ namespace Tools.ObjectPoolTool.Container
             return value;
         }
 
-        public void RecycleElement(T go)
+        public void RecycleObject(T go)
         {
             go.Recycle();
             if (_curContainer.count >= _curMaxSize)

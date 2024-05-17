@@ -24,8 +24,27 @@ namespace Tools.ObjectPoolTool
                     _curContainer = new PoolArray<T>(defaultSize);
                     break;
                 case OBJECT_POOL_MEMORY_TYPE.UNPREDICTABLE_CAPACITY:
+                    _curContainer = new PoolLinkedList<T>(defaultSize);
                     break;
             }
+        }
+
+        /// <summary>
+        /// 申请实例
+        /// </summary>
+        /// <returns></returns>
+        public T ApplyObject()
+        {
+            return _curContainer.ApplyObject();
+        }
+
+        /// <summary>
+        /// 回收实例
+        /// </summary>
+        /// <param name="go"></param>
+        public void RecycleObject(T go)
+        {
+            _curContainer.RecycleObject(go);
         }
     }
 }
