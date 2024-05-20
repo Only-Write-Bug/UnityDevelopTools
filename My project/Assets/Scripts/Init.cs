@@ -9,7 +9,7 @@ public class Init : MonoBehaviour
 {
     private void Start()
     {
-        EventCenter.Instance.CreateEvent("aaa");
+        TimeTaskManager.Instance.ToString();
     }
 
     private void FixedUpdate()
