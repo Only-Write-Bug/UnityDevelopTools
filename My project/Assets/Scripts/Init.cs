@@ -1,19 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Tools.ObjectPoolTool;
-using Tools.ObjectPoolTool.Enum;
+using UnityEditor;
 using UnityEngine;
 
 public class Init : MonoBehaviour
 {
     private void Start()
     {
-        TimeTaskManager.Instance.ToString();
+        
     }
 
-    private void FixedUpdate()
+    private void OnApplicationPause(bool pauseStatus)
     {
-        
+#if !UNITY_EDITOR
+        if (pauseStatus)
+        {
+            ApplicationLifeCycle.onPause?.Invoke();
+        }
+        else
+        {
+            ApplicationLifeCycle.onReopen?.Invoke();
+        }
+#endif
+    }
+
+    private void OnApplicationQuit()
+    {
+        ApplicationLifeCycle.onQuit?.Invoke();
     }
 }
