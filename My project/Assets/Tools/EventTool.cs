@@ -16,9 +16,9 @@ public static class EventTool
     /// </summary>
     /// <param name="eventName"></param>
     /// <returns>订阅号</returns>
-    public static void SubscribeEvent(string eventName, EVENT_SUBSCRIBER_PRIORITY priority, Action<dynamic[]> callback)
+    public static ulong SubscribeEvent(string eventName, EVENT_SUBSCRIBER_PRIORITY priority, Action<dynamic[]> callback)
     {
-        EventCenter.Instance.SubscribeEvent(eventName, priority, callback);
+       return EventCenter.Instance.SubscribeEvent(eventName, priority, callback);
     }
 
     /// <summary>
