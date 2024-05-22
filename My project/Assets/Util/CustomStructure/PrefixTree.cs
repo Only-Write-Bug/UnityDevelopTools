@@ -49,7 +49,7 @@ public class PrefixTree
             }
         }
 
-        curNode.isLeaftNode = true;
+        curNode.isLeafNode = true;
     }
 
     /// <summary>
@@ -89,21 +89,81 @@ public class PrefixTree
     /// <param name="value"></param>
     public void Remove(string value)
     {
-        var leaftNode = Search(value);
-        if (leaftNode == null)
+        var leafNode = Search(value);
+        if (leafNode == null)
             return;
 
-        while (leaftNode.parent != null)
+        while (leafNode.parent != null)
         {
-            if (leaftNode.childen.Count > 0)
-                leaftNode = leaftNode.parent;
+            if (leafNode.childen.Count > 0)
+                leafNode = leafNode.parent;
             else
             {
-                var tmpNode = leaftNode;
-                leaftNode = leaftNode.parent;
-                leaftNode.childen.Remove(tmpNode);
+                var tmpNode = leafNode;
+                leafNode = leafNode.parent;
+                leafNode.childen.Remove(tmpNode);
             }
         }
+    }
+
+    /// <summary>
+    /// 获取指定前缀的字符串集合
+    /// </summary>
+    /// <param name="prefix"></param>
+    /// <returns></returns>
+    public string[] GetPreFixStrings(string prefix)
+    {
+        var prefixNode = Search(prefix);
+        if (prefixNode == null)
+            return null;
+
+        var tmpList = new List<string>();
+        IterateChildenLeafNode(prefixNode, tmpList);
+        
+        return tmpList.ToArray();
+    }
+
+    /// <summary>
+    /// 迭代当前节点下的所有叶子节点，并输入完整路径
+    /// </summary>
+    /// <param name="curNode"></param>
+    /// <param name="tmpList"></param>
+    private void IterateChildenLeafNode(PrefixTreeNode curNode, List<string> tmpList)
+    {
+        if (curNode.isLeafNode)
+        {
+            tmpList.Add(GetNodePath(curNode));
+        }
+
+        if (curNode.childen.Count <= 0)
+        {
+            return;
+        }
+        else
+        {
+            foreach (var node in curNode.childen)
+            {
+                IterateChildenLeafNode(node, tmpList);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 获取节点路径
+    /// </summary>
+    /// <param name="curNode"></param>
+    /// <returns></returns>
+    private string GetNodePath(PrefixTreeNode curNode)
+    {
+        var tmpSB = new StringBuilder();
+
+        while (curNode != root)
+        {
+            tmpSB.Insert(0, curNode.character);
+            curNode = curNode.parent;
+        }
+
+        return tmpSB.ToString();
     }
 }
 
@@ -124,6 +184,6 @@ public class PrefixTreeNode
 
     public char character;
 
-    public bool isLeaftNode = false;
+    public bool isLeafNode = false;
     public string value;
 }
