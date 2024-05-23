@@ -124,11 +124,26 @@ public class PrefixTree
     }
 
     /// <summary>
+    /// 查找此时树中的共同前缀
+    /// </summary>
+    /// <returns></returns>
+    public string GetPrefix()
+    {
+        var curNode = root;
+        while (curNode.childen.Count == 1)
+        {
+            curNode = curNode.childen[0];
+        }
+
+        return GetNodePath(curNode);
+    }
+
+    /// <summary>
     /// 迭代当前节点下的所有叶子节点，并输入完整路径
     /// </summary>
     /// <param name="curNode"></param>
     /// <param name="tmpList"></param>
-    private void IterateChildenLeafNode(PrefixTreeNode curNode, List<string> tmpList)
+    private void IterateChildenLeafNode(PrefixTreeNode curNode, ICollection<string> tmpList)
     {
         if (curNode.isLeafNode)
         {
@@ -139,12 +154,10 @@ public class PrefixTree
         {
             return;
         }
-        else
+
+        foreach (var node in curNode.childen)
         {
-            foreach (var node in curNode.childen)
-            {
-                IterateChildenLeafNode(node, tmpList);
-            }
+            IterateChildenLeafNode(node, tmpList);
         }
     }
 
