@@ -1,0 +1,17 @@
+{
+  "prefab_test1": {
+    "path": "\\prefab_test1.prefab",
+    "lastWriteTime": "2024-05-24T16:39:45.6347071+08:00",
+    "isDirty": false
+  },
+  "prefab_test2": {
+    "path": "\\test\\prefab_test2.prefab",
+    "lastWriteTime": "2024-05-23T17:50:14.3362821+08:00",
+    "isDirty": false
+  },
+  "Cube": {
+    "path": "\\Cube.prefab",
+    "lastWriteTime": "2024-05-24T00:00:00+08:00",
+    "isDirty": true
+  }
+}

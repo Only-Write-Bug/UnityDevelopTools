@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -62,28 +64,39 @@ public static class StreamUtil
     /// 去除父级路径
     /// </summary>
     /// <param name="pathA"></param>
-    /// <param name="path"></param>
+    /// <param name="child"></param>
     /// <returns></returns>
-    public static string RemoveParentPath(string root, string path)
+    public static string RemoveParentPath(string parent, string child)
     {
         var rootPtr = 0;
         var pathPtr = 0;
 
-        for (int i = 0; i < path.Length; i++)
+        for (int i = 0; i < child.Length; i++)
         {
-            if (rootPtr == root.Length)
-                return path.Substring(pathPtr);
-            if (root[rootPtr].Equals(path[pathPtr]))
+            if (rootPtr == parent.Length)
+                return child.Substring(pathPtr);
+            if (parent[rootPtr].Equals(child[pathPtr]))
             {
                 rootPtr++;
                 pathPtr++;
             }
             else
             {
-                return path.Substring(pathPtr);
+                return child.Substring(pathPtr);
             }
         }
 
         return null;
+    }
+
+    public static void GetFilesByType(string root, string[] types, SearchOption searchOption, out List<string> allFiles)
+    {
+        allFiles = new List<string>();
+        
+        foreach (var type in types)
+        {
+            var files = Directory.GetFiles(root, $"*.{type}", SearchOption.AllDirectories);
+            allFiles.AddRange(files.ToList());
+        }
     }
 }
