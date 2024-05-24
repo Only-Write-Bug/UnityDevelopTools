@@ -91,7 +91,6 @@ public static class DirtyDataTool
         File.WriteAllText(root + $"\\{_dirtyFileName}", jsonString);
         
         Debug.Log($"{root} dirty file count :: {dirtyFiles.Count}");
-        Debug.Log($"{root} update dirty file over");
 
         return dirtyFiles.ToArray();
     }

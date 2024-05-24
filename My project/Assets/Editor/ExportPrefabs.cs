@@ -21,7 +21,8 @@ namespace Editor
                 return;
             }
 
-            UpdateDirtyFile();
+            var dirtyPrefabs = UpdateDirtyFile();
+            GenerateFileTool.GenerateResourceKeyFile(_prefabsDirectoryPath, new []{"prefab"}, SearchOption.AllDirectories);
         }
 
         /// <summary>
@@ -43,9 +44,14 @@ namespace Editor
         /// <summary>
         /// 更新脏数据文件
         /// </summary>
-        private static void UpdateDirtyFile()
+        private static string[] UpdateDirtyFile()
         {
-            DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
+            return DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
+        }
+
+        private static void UpdatePrefabsKey()
+        {
+            
         }
     }
 }

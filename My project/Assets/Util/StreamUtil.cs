@@ -89,6 +89,13 @@ public static class StreamUtil
         return null;
     }
 
+    /// <summary>
+    /// 获取该目录下指定类型的文件
+    /// </summary>
+    /// <param name="root"></param>
+    /// <param name="types">所有就用*</param>
+    /// <param name="searchOption"></param>
+    /// <param name="allFiles"></param>
     public static void GetFilesByType(string root, string[] types, SearchOption searchOption, out List<string> allFiles)
     {
         allFiles = new List<string>();
