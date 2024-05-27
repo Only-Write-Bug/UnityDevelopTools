@@ -19,9 +19,9 @@ public class TimeTaskManager : ToolBase<TimeTaskManager>
     {
         _taskPool = ObjectPoolTool.ApplyObjectPool<TimeTaskModel>(16, OBJECT_POOL_MEMORY_TYPE.UNPREDICTABLE_CAPACITY);
         EventTool.CreateEvent(eventName);
-        ApplicationLifeCycle.onPause += () => { _timer.Stop(); };
-        ApplicationLifeCycle.onReopen += () => { _timer.Start(); };
-        ApplicationLifeCycle.onQuit += Destory;
+        ApplicationLifeCycle.onPause += _timer.Stop;
+        ApplicationLifeCycle.onReopen += _timer.Start;
+        ApplicationLifeCycle.onQuit += Destroy;
 
         _timer = new Timer(tickStep);
         _timer.Elapsed += (object sender, ElapsedEventArgs e) => { EventTool.PublishEvent(eventName, null); };
@@ -73,8 +73,12 @@ public class TimeTaskManager : ToolBase<TimeTaskManager>
         }
     }
     
-    private void Destory()
+    private void Destroy()
     {
+        ApplicationLifeCycle.onPause -= _timer.Stop;
+        ApplicationLifeCycle.onReopen -= _timer.Start;
+        ApplicationLifeCycle.onQuit -= _timer.Stop;
+        
         _timer.Stop();
         _timer.Dispose();
         _timer = null;

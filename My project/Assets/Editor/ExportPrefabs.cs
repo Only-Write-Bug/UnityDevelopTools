@@ -48,10 +48,5 @@ namespace Editor
         {
             return DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
         }
-
-        private static void UpdatePrefabsKey()
-        {
-            
-        }
     }
 }

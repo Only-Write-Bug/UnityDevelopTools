@@ -20,7 +20,7 @@ public static class StreamUtil
         }
         catch (IOException ex)
         {
-            Debug.Log($"Target path is not found :: {ex}");
+            Debug.LogError($"Target path is not found :: {ex}");
             return false;
         }
     }
