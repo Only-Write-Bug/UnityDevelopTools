@@ -5,7 +5,7 @@ public class Init : MonoBehaviour
 {
     private void Start()
     {
-        
+        AssetsManagerTool.PackPrefabsToAssetBundles();
     }
 
     private void OnApplicationPause(bool pauseStatus)

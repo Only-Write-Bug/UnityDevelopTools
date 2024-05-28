@@ -11,7 +11,7 @@ namespace Editor
         
         private static string _prefabsDirectoryPath;
 
-        [MenuItem("UI Tools/Export Prefabs")]
+        [MenuItem("Resources Tools/Export Prefabs")]
         public static void Export()
         {
             _prefabsDirectoryPath ??= GetPrefabsDirectoryPath();
@@ -21,7 +21,9 @@ namespace Editor
                 return;
             }
 
-            var dirtyPrefabs = UpdateDirtyFile();
+            //刷新脏数据文件
+            var dirtyPrefabs = DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
+            //生成资源键文件
             GenerateFileTool.GenerateResourceKeyFile(_prefabsDirectoryPath, new []{"prefab"}, SearchOption.AllDirectories);
         }
 
@@ -39,14 +41,6 @@ namespace Editor
                     return path;
             }
             return null;
-        }
-
-        /// <summary>
-        /// 更新脏数据文件
-        /// </summary>
-        private static string[] UpdateDirtyFile()
-        {
-            return DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
         }
     }
 }
