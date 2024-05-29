@@ -5,22 +5,21 @@ using UnityEngine;
 public class AssetBundlesTool : ToolBase<AssetBundlesTool>
 {
     public string assetBundlesDirectoryPath { get; } = CheckABPackageDirectory();
-
+    
     /// <summary>
-    /// 打包指定目录的指定类型资源资源
+    /// 清空AB包
     /// </summary>
-    /// <param name="resourcesDirectory"></param>
-    public void PackSpecifiedDirectoryResources(string resourcesDirectory, string[] resourcesType)
+    public void ClearAssetBundles()
     {
-        if (!StreamUtil.IsFolderExists(resourcesDirectory))
+        var formerFiles = Directory.GetFiles(AssetBundlesTool.Instance.assetBundlesDirectoryPath);
+        var formerDirectories = Directory.GetDirectories(AssetBundlesTool.Instance.assetBundlesDirectoryPath);
+        for (int i = 0; i < formerFiles.Length; i++)
         {
-            return;
+            File.Delete(formerFiles[i]);
         }
-
-        var childrenDirectories = Directory.GetDirectories(resourcesDirectory);
-        foreach (var directory in childrenDirectories)
+        for (int i = 0; i < formerDirectories.Length; i++)
         {
-            
+            Directory.Delete(formerDirectories[i]);
         }
     }
 

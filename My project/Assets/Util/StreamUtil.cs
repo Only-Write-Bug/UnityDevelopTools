@@ -61,6 +61,23 @@ public static class StreamUtil
     }
 
     /// <summary>
+    /// 获取文件类型
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    public static string GetFileType(string file)
+    {
+        for (int i = file.Length - 1; i >= 0; i--)
+        {
+            if (file[i] != '.')
+                continue;
+            return file.Substring(i + 1);
+        }
+
+        return file;
+    }
+
+    /// <summary>
     /// 去除父级路径
     /// </summary>
     /// <param name="pathA"></param>
@@ -102,8 +119,45 @@ public static class StreamUtil
         
         foreach (var type in types)
         {
-            var files = Directory.GetFiles(root, $"*.{type}", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(root, $"*.{type}", searchOption);
             allFiles.AddRange(files.ToList());
         }
+    }
+
+    /// <summary>
+    /// 获取指定目录下指定类型以外的文件
+    /// </summary>
+    /// <param name="root"></param>
+    /// <param name="exclusionType"></param>
+    /// <param name="searchOption"></param>
+    /// <param name="allFiles"></param>
+    public static void GetFilesByOtherType(string root, string[] exclusionType, SearchOption searchOption,
+        out List<string> allFiles)
+    {
+        allFiles = new List<string>();
+
+        foreach (var file in Directory.GetFiles(root, "*", searchOption))
+        {
+            if(HasSpecifyType(file, exclusionType))
+                continue;
+            allFiles.Add(file);
+        }
+    }
+
+    /// <summary>
+    /// 文件是否有指定类型
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="types"></param>
+    /// <returns></returns>
+    public static bool HasSpecifyType(string file, string[] types)
+    {
+        foreach (var type in types)
+        {
+            if (StreamUtil.GetFileType(file).Equals(type))
+                return true;
+        }
+
+        return false;
     }
 }

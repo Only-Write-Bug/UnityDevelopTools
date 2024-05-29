@@ -23,4 +23,26 @@ public static class StructureUtil
 
         return tmp.ToArray();
     }
+
+    /// <summary>
+    /// 拼接数组
+    /// </summary>
+    /// <param name="preArray"></param>
+    /// <param name="lastArray"></param>
+    /// <typeparam name="T"></typeparam>
+    public static void SpliceArray<T>(ref T[] preArray, T[] lastArray)
+    {
+        var tmpArray = new T[preArray.Length + lastArray.Length];
+        for (int i = 0; i < preArray.Length; i++)
+        {
+            tmpArray[i] = preArray[i];
+        }
+
+        for (int i = 0; i < lastArray.Length; i++)
+        {
+            tmpArray[preArray.Length + i] = lastArray[i];
+        }
+
+        preArray = tmpArray;
+    }
 }
