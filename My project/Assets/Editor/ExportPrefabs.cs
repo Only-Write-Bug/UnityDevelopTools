@@ -20,9 +20,7 @@ namespace Editor
                 Debug.LogError("UI Export Prefabs Error :: prefabs directory is not found");
                 return;
             }
-
-            //刷新脏数据文件
-            var dirtyPrefabs = DirtyDataTool.UpdateDirtyFile(_prefabsDirectoryPath, new []{"prefab"});
+            
             //生成资源键文件
             GenerateFileTool.GenerateResourceKeyFile(_prefabsDirectoryPath, new []{"prefab"}, SearchOption.AllDirectories);
         }

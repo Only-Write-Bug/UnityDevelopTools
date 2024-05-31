@@ -45,4 +45,37 @@ public static class StructureUtil
 
         preArray = tmpArray;
     }
+
+    /// <summary>
+    /// 根据指定字符切割字符串
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="character"></param>
+    /// <returns></returns>
+    public static string[] CuttingStringByCharacter(string text, char character)
+    {
+        var tmp = new List<string>();
+        var headPtr = 0;
+        var tailPtr = 0;
+
+        while (tailPtr <= text.Length)
+        {
+            if (tailPtr == text.Length)
+            {
+                tmp.Add(text.Substring(headPtr, tailPtr - headPtr));
+                break;
+            }
+            if (text[tailPtr].Equals(character))
+            {
+                tmp.Add(text.Substring(headPtr, tailPtr - headPtr));
+                headPtr = ++tailPtr;
+                continue;
+            }
+
+            tailPtr++;
+        }
+
+
+        return tmp.ToArray();
+    }
 }

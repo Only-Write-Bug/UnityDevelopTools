@@ -25,6 +25,19 @@ public static class StreamUtil
         }
     }
 
+    public static bool IsFileExists(string filePath)
+    {
+        try
+        {
+            return File.Exists(filePath);
+        }
+        catch (IOException ex)
+        {
+            Debug.LogError($"Target path is not found :: {ex}");
+            throw;
+        }
+    }
+
     /// <summary>
     /// 获取路径叶子节点名称
     /// </summary>

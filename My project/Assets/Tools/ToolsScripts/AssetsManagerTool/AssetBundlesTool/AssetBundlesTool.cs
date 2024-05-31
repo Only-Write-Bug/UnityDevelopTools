@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Util.ResolveFileUtil.ResolveManifestUtil;
 
 public class AssetBundlesTool : ToolBase<AssetBundlesTool>
 {
@@ -20,6 +21,19 @@ public class AssetBundlesTool : ToolBase<AssetBundlesTool>
         for (int i = 0; i < formerDirectories.Length; i++)
         {
             Directory.Delete(formerDirectories[i]);
+        }
+    }
+
+    /// <summary>
+    /// 更新Manifest文件
+    /// </summary>
+    /// <param name="rootPath"></param>
+    public void UpdateManifest(string rootPath)
+    {
+        StreamUtil.GetFilesByType(rootPath, new []{ "manifest"}, SearchOption.AllDirectories, out var files);
+        foreach (var file in files)
+        {
+            ResolveManifestUtil.ResolveDirectoryManifest(file);
         }
     }
 

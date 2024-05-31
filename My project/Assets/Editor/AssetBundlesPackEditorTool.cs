@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AssetBundlesPackEditorTool : EditorWindow
 {
-    private const string _packageSuffix = "_package.bundle";
+    private const string _packageSuffix = ".bundle";
 
     private List<(string path, BuildAssetBundleOptions buildOptions, BuildTarget target)>
         _targetDirectoriesConfig =
@@ -109,6 +109,7 @@ public class AssetBundlesPackEditorTool : EditorWindow
                 return;
 
             BuildPipeline.BuildAssetBundles(targetPath, builds.ToArray(), config.buildOptions, config.target);
+            AssetBundlesTool.Instance.UpdateManifest(targetPath);
         }
     }
 }

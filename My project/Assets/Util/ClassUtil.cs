@@ -17,4 +17,19 @@ public class ClassUtil
 
         return method1.DeclaringType == method2.DeclaringType && method1.Name == method2.Name;
     }
+
+    /// <summary>
+    /// 给实例字段赋值
+    /// </summary>
+    /// <param name="ob"></param>
+    /// <param name="fieldsName"></param>
+    /// <param name="value"></param>
+    public static void SetObjectFields(object ob, string fieldsName, dynamic value)
+    {
+        var fieldsInfo = ob.GetType().GetField(fieldsName);
+        if (fieldsInfo != null)
+        {
+            fieldsInfo.SetValue(ob, (object)value);
+        }
+    }
 }
